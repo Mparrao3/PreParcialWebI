@@ -2,26 +2,52 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'BookStore - Autores',
-  icons: {
-    icon: 'prep-crud\app\favicon-16x16.png',
-  },
-  description: 'Aplicación CRUD de Autores con Next.js y TypeScript',
+  title: 'Gestión de Autores y Favoritos',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
-      <body className="min-h-screen bg-gray-50 text-gray-900">
-        <header className="bg-blue-600 text-white p-4 flex gap-4">
-          <a href="/authors" className="font-semibold hover:underline">
-            Autores
-          </a>
-          <a href="/crear" className="font-semibold hover:underline">
-            Crear
-          </a>
+      <body>
+        <a href="#main-content" className="skip-link">
+          Saltar al contenido principal
+        </a>
+        <header className="bg-blue-600 text-white p-4">
+          <nav role="navigation" aria-label="Navegación principal">
+            <ul className="flex gap-4 list-none">
+              <li>
+                <a 
+                  href="/authors" 
+                  className="font-semibold hover:underline focus:ring-2 focus:ring-white focus:outline-none rounded px-2 py-1"
+                  aria-label="Ver lista de autores"
+                >
+                  Autores
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/crear" 
+                  className="font-semibold hover:underline focus:ring-2 focus:ring-white focus:outline-none rounded px-2 py-1"
+                  aria-label="Crear nuevo autor"
+                >
+                  Crear
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/favoritos" 
+                  className="font-semibold hover:underline focus:ring-2 focus:ring-white focus:outline-none rounded px-2 py-1"
+                  aria-label="Ver autores favoritos"
+                >
+                  Favoritos
+                </a>
+              </li>
+            </ul>
+          </nav>
         </header>
-        <main className="max-w-4xl mx-auto p-6">{children}</main>
+        <main role="main" id="main-content">
+          {children}
+        </main>
       </body>
     </html>
   );

@@ -66,6 +66,36 @@ export function useAuthorsCrud() {
 
   const getById = (id: number) => authors.find((a) => a.id === id);
 
+  const [favorites, setFavorites] = useState<number[]>([]);
+
+  // Load favorites from localStorage on hook initialization
+  useEffect(() => {
+    const savedFavorites = localStorage.getItem('authorFavorites');
+    if (savedFavorites) {
+      try {
+        setFavorites(JSON.parse(savedFavorites));
+      } catch (error) {
+        console.error('Error loading favorites from localStorage:', error);
+      }
+    }
+  }, []);
+
+  // Save favorites to localStorage whenever favorites change
+  useEffect(() => {
+    localStorage.setItem('authorFavorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+
+const toggleFavorite = (id: number) => {
+  setFavorites((prev) =>
+    prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]
+  );
+};
+
+
+const isFavorite = (id: number) => favorites.includes(id);
+
+
 
   useEffect(() => {
     fetchAuthors();
@@ -80,5 +110,8 @@ export function useAuthorsCrud() {
     updateAuthor,
     deleteAuthor,
     getById,
+    favorites,
+    toggleFavorite,
+    isFavorite,
   };
 }
