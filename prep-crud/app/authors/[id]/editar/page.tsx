@@ -6,7 +6,7 @@ import { useAuthorsCrud, type Author } from '../../../../hooks/useAuthorsCrud';
 
 export default function EditarAutorPage() {
   const { id } = useParams<{ id: string }>();
-  const { getById, updateAuthor } = useAuthorsCrud();
+  const { getById, updateAuthor, authors, loading: authorsLoading } = useAuthorsCrud();
   const [form, setForm] = useState<Author>({
     name: '',
     description: '',
@@ -18,7 +18,8 @@ export default function EditarAutorPage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (id) {
+    
+    if (!authorsLoading && authors.length > 0 && id) {
       const author = getById(Number(id));
       if (author) {
         setForm(author);
@@ -27,8 +28,12 @@ export default function EditarAutorPage() {
         setError('Autor no encontrado');
         setLoading(false);
       }
+    } else if (!authorsLoading && authors.length === 0) {
+      
+      setError('No hay autores disponibles');
+      setLoading(false);
     }
-  }, [id, getById]);
+  }, [id, getById, authors, authorsLoading]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -47,7 +52,7 @@ export default function EditarAutorPage() {
     }
   };
 
-  if (loading) return (
+  if (loading || authorsLoading) return (
     <p className="p-6" role="status" aria-live="polite">
       Cargando...
     </p>
