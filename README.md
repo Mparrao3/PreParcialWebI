@@ -6,6 +6,8 @@ Para cumplir con la eleccion de favoritos se agrego la opción de favoritos en c
 
 También se creó la ruta /favoritos que muestra solo los autores que fueron marcados, y desde ahí mismo se pueden quitar. Para lograrlo se extendió el hook que ya teníamos para manejar el CRUD y se reutilizó esa parte para mantener el estado de favoritos y que se vea igual en todas las vistas.
 
+Respecto al preparcial se implementaron una serie de mejoras respecto a la interaccion visual con el usuario de lamano de la accesibilidad y la usabilidad.
+
 ### Justificacion de Arquitectura
 
 **Parte A – Favoritos**
